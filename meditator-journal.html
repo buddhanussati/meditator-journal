@@ -1604,7 +1604,7 @@ renderDayChartOnly(dateStr) {
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            return ` ${context.label}: ${context.raw} ${unitLabel}`;
+                            return ` ${context.raw} ${unitLabel}`;
                         }
                     }
                 }
@@ -1744,7 +1744,7 @@ this.charts.breakdown = new Chart(ctxBreakdown, {
             legend: { labels: { color: '#9ca3af' } },
             title: { 
                 display: activeGoals.length === 0, 
-                text: 'Chưa có dữ liệu', 
+                text: 'No data available', 
                 position: 'bottom', 
                 color: '#6b7280' 
             },
@@ -1752,9 +1752,8 @@ this.charts.breakdown = new Chart(ctxBreakdown, {
             tooltip: {
                 callbacks: {
                     label: function(context) {
-                        const label = context.label || '';
                         const value = context.raw || 0;
-                        return ` ${label}: ${value} ${unitLabel}`;
+                        return ` ${value} ${unitLabel}`;
                     }
                 }
             }
