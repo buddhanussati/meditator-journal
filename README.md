@@ -36,13 +36,13 @@ To use the app effectively, you should understand the following indicators:
 * **Focus Mode:** A countdown timer with a visual progress bar.
 * **Manual Entry:** Forgot to start the timer? You can manually log a session or edit previous records.
 
-### 3. Reports & Data Analysis
+### 3. Statistics & Data Analysis
 
 * **Dashboard:** View today's progress relative to your set goals.
 * **Practice Calendar:** A grid heatmap showing daily practice intensity. Darker colors represent longer practice durations.
 * **Visual Charts:**
 * **Session Graph:** Review mindfulness levels *within a specific session* (line chart).
-* **Weekly/Monthly Reports:** Compare performance over real-time intervals.
+* **Weekly/Monthly Statistics:** Compare performance over real-time intervals.
 * **Distribution:** A pie chart showing the percentage of time or mindfulness spent on different goals.
 
 
@@ -70,9 +70,9 @@ To use the app effectively, you should understand the following indicators:
 * **During Meditation:** Tap the screen whenever you find yourself mindfully returning to the meditation object.
 * At the end of the session, a summary panel will appear for you to add journal notes.
 
-#### 3. View Reports
+#### 3. View Statistics
 
-* Select the **"Reports"** tab on the sidebar to view charts.
+* Select the **"Statistics"** tab on the sidebar to view charts.
 * Select the **"Calendar"** tab to see your history. Click on a specific date to see details of sessions for that day.
 
 ---
