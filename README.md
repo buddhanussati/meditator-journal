@@ -11,7 +11,7 @@ To use the app effectively, you should understand the following indicators:
 
 * **Mindfulness (Sati):** A unit for measuring awareness. Every time you recognize your breath or mental state and touch the screen, one "Mindfulness" point is recorded.
 * **Mindful State:** A state where the frequency of recording (Sati) remains stable and regular.
-* **Unmindful (Loss of Awareness):** A state where the mind is distracted or drowsy, resulting in few or no recordings over a period of time.
+* **Unmindful:** A state where the mind is distracted or drowsy, resulting in few or no recordings over a period of time.
 * **Diligence Streak:** The number of consecutive days you have maintained your practice.
 
 ## ✨ Key Features
