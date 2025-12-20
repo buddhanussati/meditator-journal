@@ -30,8 +30,8 @@ To use the app effectively, you should understand the following indicators:
 * **Meditation Mode:**
 * Visual "breathing" effect (expand/contract) helps regulate breathing rhythm.
 * **Tap-to-Track:** Touch the screen (or click) every time you acknowledge your focus returning to the breath. These counts accumulate as Mindfulness (Sati) points.
-<img width="346" height="621" alt="image" src="https://github.com/user-attachments/assets/3811d39a-7e42-4d3a-bb78-c796fcbdf5e9" />
 
+<img width="345" height="450" alt="2en" src="https://github.com/user-attachments/assets/d30c6ed0-27d7-4a05-a579-e4732b79f0b1" />
 
 * **Focus Mode:** A countdown timer with a visual progress bar.
 * **Manual Entry:** Forgot to start the timer? You can manually log a session or edit previous records.
