@@ -853,7 +853,6 @@ this.dayChartMode = 'time';  // Chế độ mặc định của modal
 
 closeIntroModal() {
     document.getElementById('intro-modal').style.display = 'none';
-    localStorage.setItem('intro_seen', 'true'); // Save so it doesn't pop up every time
 }          
            // Fix: Week starts on Monday
             getStartOfWeek(date) {
@@ -883,9 +882,7 @@ closeIntroModal() {
                     console.error("Error during init:", err);
                     alert("App failed to initialize. Try resetting data via the sidebar button.");
                 }
-				if (!localStorage.getItem('intro_seen')) {
-        this.openIntroModal();
-    }
+
             }
 
             save() {
