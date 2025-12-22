@@ -519,9 +519,17 @@
     </div>
 </div>
     <div class="modal" id="session-modal">
-        <div class="modal-content">
-            <h2 id="session-title" style="margin-bottom: 20px;">Log Session</h2>
-            <form onsubmit="app.logSessionConfirm(event)">
+    <div class="modal-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 id="session-title" style="margin: 0;">Log Session</h2>
+            <button type="button" id="btn-delete-session" class="btn-icon" 
+                style="background: transparent; color: var(--danger); display: none; width: 30px; height: 30px;" 
+                onclick="app.deleteSession()"
+                title="Delete this session">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+        <form onsubmit="app.logSessionConfirm(event)">
                 <input type="hidden" id="s-goal-id" />
                 <input type="hidden" id="s-log-id" />
                 
@@ -590,17 +598,28 @@
 
     <div class="modal" id="graph-modal" style="overflow-y: auto; z-index: 150;">
         <div class="modal-content" style="width: 600px;">
-            <h2 style="margin-bottom: 10px;">Meditation Session</h2>
-            <p id="graph-date" style="color: var(--text-light); margin-bottom: 20px; font-size: 14px;"></p>
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 20px;">
+                <div>
+                    <h2 style="margin-bottom: 5px;">Meditation Session</h2>
+                    <p id="graph-date" style="color: var(--text-light); font-size: 14px; margin: 0;"></p>
+             </div>
+               
+            </div>
+
             <div style="height: 300px; width: 100%;">
                 <canvas id="sessionGraph"></canvas>
             </div>
-            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
-    <button class="btn btn-secondary" id="btn-export-session" title="Copy JSON Data">
-        <i class="fas fa-file-code"></i> Copy Data
-    </button>
-    <button class="btn btn-secondary" onclick="document.getElementById('graph-modal').style.display='none'">Close</button>
-</div>
+            
+            <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+			 <button class="btn btn-secondary" id="btn-export-session" title="Copy JSON Data">
+                    <i class="fas fa-file-code"></i>
+                </button>
+			<select id="graph-type-select" class="form-control" style="width: auto; padding: 5px 5px 5px; height: 36px; font-size: 13px; cursor: pointer;" onchange="app.updateSessionChart()">
+                    <option value="intensity">🌱 Mindfulness</option>
+                    <option value="interval">☁️ Forgetfulness</option>
+                </select>
+               <button class="btn btn-secondary" onclick="document.getElementById('graph-modal').style.display='none'" title="Close"><i class="fas fa-xmark"></i></button>
+            </div>
         </div>
     </div>
 
@@ -1003,7 +1022,7 @@ get totalMindfulnessCounts() {
             
             // --- MEDITATION LOGIC ---
             startMeditationSetup(goal) {
-                const minStr = prompt('Meditation duration (mins):', '10');
+                const minStr = prompt('Meditation duration (mins):', '30');
                 if (!minStr) return;
                 const min = parseInt(minStr);
                 if (isNaN(min) || min <= 0) return;
@@ -1283,36 +1302,54 @@ concludeMeditationSession(type = 'manual') {
             }
             
             showSessionGraph(timestamp) {
-	const exportBtn = document.getElementById('btn-export-session');
+    const exportBtn = document.getElementById('btn-export-session');
     if (exportBtn) {
-        // Unbind previous events to prevent stacking
         exportBtn.onclick = () => this.exportSessionData(timestamp);
-    }		
+    }
+
     const log = this.data.logs.find(l => l.timestamp == timestamp);
-    if (!log || !log.touches) return;
+    if (!log || !log.touches) {
+        this.showToast("No data available for this session");
+        return;
+    }
+    
+    // Store current log for switching views
+    this.currentGraphLog = log;
 
     document.getElementById('graph-modal').style.display = 'flex';
-    document.getElementById('graph-date').innerText = new Date(log.timestamp).toLocaleString('en-GB');
+    document.getElementById('graph-date').innerText = new Date(log.timestamp).toLocaleString('vi-VN');
+    
+    // Reset selector to default and render
+    document.getElementById('graph-type-select').value = 'intensity';
+    this.updateSessionChart();
+}
 
+updateSessionChart() {
+    if (!this.currentGraphLog) return;
+    const type = document.getElementById('graph-type-select').value;
     const ctx = document.getElementById('sessionGraph').getContext('2d');
+    
+    // Destroy previous instance
     if (this.charts.session) this.charts.session.destroy();
 
+    if (type === 'interval') {
+        this.renderIntervalChart(ctx, this.currentGraphLog);
+    } else {
+        this.renderIntensityChart(ctx, this.currentGraphLog);
+    }
+}
+
+renderIntensityChart(ctx, log) {
     const startTime = log.timestamp;
     const durationSeconds = (log.minutes * 60) || Math.ceil((Date.now() - startTime) / 1000);
     
     const dataPoints = [];
     const labels = [];
-
-    // --- CẢI TIẾN: ĐỘ PHÂN GIẢI THÔNG MINH ---
-    // Luôn chia phiên thiền thành 50 điểm để biểu đồ luôn đầy đặn và mượt mà
     const totalPoints = 30; 
     const step = durationSeconds / totalPoints; 
 
     for (let s = 0; s <= durationSeconds; s += step) {
-        // Label thông minh: < 2 phút hiện giây (s), > 2 phút hiện phút (m)
-        labels.push(durationSeconds < 120 ? Math.round(s) + 's' : (s / 60).toFixed(1));
-
-        // Cửa sổ tính mật độ (Window) là 1 phút (60s)
+        labels.push(durationSeconds < 120 ? Math.round(s) + 's' : (s / 60).toFixed(0));
         const windowSizeMs = 60000; 
         const windowStart = (s * 1000) - (windowSizeMs / 2);
         const windowEnd = (s * 1000) + (windowSizeMs / 2);
@@ -1321,18 +1358,14 @@ concludeMeditationSession(type = 'manual') {
             const touchTime = t - startTime;
             return touchTime >= windowStart && touchTime <= windowEnd;
         }).length;
-
         dataPoints.push(intensity);
     }
-   
 
-// Thay vì dùng con số 900 cố định, hãy dùng logic này bên trong Chart.js hoặc ngay trước khi vẽ
-const chartHeight = ctx.canvas.clientHeight; 
-const gradient = ctx.createLinearGradient(0, 0, 0, chartHeight);
-
-gradient.addColorStop(0, 'rgba(167, 139, 250, 0.6)'); // Đỉnh: Tím rõ hơn
-gradient.addColorStop(0.5, 'rgba(167, 139, 250, 0.3)'); // Xuống gần đáy: Mờ dần
-gradient.addColorStop(1, 'rgba(167, 139, 250, 0.05)');   // Đáy: Trong suốt hoàn toàn
+    const chartHeight = ctx.canvas.clientHeight || 300; 
+    const gradient = ctx.createLinearGradient(0, 0, 0, chartHeight);
+    gradient.addColorStop(0, 'rgba(167, 139, 250, 0.6)'); 
+    gradient.addColorStop(0.5, 'rgba(167, 139, 250, 0.3)'); 
+    gradient.addColorStop(1, 'rgba(167, 139, 250, 0.05)');   
 
     this.charts.session = new Chart(ctx, {
         type: 'line',
@@ -1341,56 +1374,109 @@ gradient.addColorStop(1, 'rgba(167, 139, 250, 0.05)');   // Đáy: Trong suốt 
             datasets: [{
                 label: 'Mindfulness',
                 data: dataPoints,
-                borderColor: '#a78bfa',
-                backgroundColor: gradient, // Sử dụng gradient đã tạo
+                borderColor: '#a78bfa', // Purple
+                backgroundColor: gradient,
                 borderWidth: 3,
                 fill: true,
                 tension: 0.4,
                 pointRadius: 0,
                 pointHoverRadius: 5,
-				pointBackgroundColor: '#c7b6fc', // Màu của điểm khi hiện lên
-    pointBorderWidth: 1
+                pointBackgroundColor: '#c7b6fc',
+                pointBorderWidth: 1
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-			interaction: {
-        mode: 'index',       // Tìm điểm theo trục X
-        intersect: false     // Chỉ cần di chuột gần đường cong là hiện điểm, không cần trỏ chính xác vào đường
-    },
+            interaction: { mode: 'index', intersect: false },
             scales: {
-                x: {
-                    title: { display: true, text: 'Time', color: '#9ca3af' },
-                    grid: { display: false },
-                    ticks: { maxTicksLimit: 10, color: '#9ca3af' }
+                x: { title: { display: true, text: 'Time (mins)', color: '#9ca3af' }, grid: { display: true }, ticks: { maxTicksLimit: 20, color: '#9ca3af' } },
+                y: { beginAtZero: true, title: { display: true, text: 'Density', color: '#9ca3af' }, grid: { color: 'rgba(55, 65, 81, 0.5)' }, ticks: { color: '#9ca3af' } }
+            },
+            plugins: {
+                tooltip: {
+                    mode: 'index', intersect: false, displayColors: false,
+                    callbacks: { label: (c) => c.raw >= 1 ? "🌱 Mindfulness (" + c.raw + ")" : "☁️ Unmindful" }
                 },
-                y: {
-                    beginAtZero: true,
-                    // Tên trục Y mới theo yêu cầu của bạn
-                    title: { display: true, text: 'Mindfulness', color: '#9ca3af' },
-                    grid: { color: 'rgba(55, 65, 81, 0.5)' },
-                    ticks: { 
-                        stepSize: 1, 
-                        precision: 0, 
-                        color: '#9ca3af'
-                    }
+                legend: { display: false }
+            }
+        }
+    });
+}
+
+renderIntervalChart(ctx, log) {
+    const touches = log.touches.sort((a, b) => a - b);
+    const startTime = log.timestamp;
+    
+    // Create Data Points: Y = Gap Duration (seconds), Label = Time of occurrence
+    const dataPoints = [];
+    const labels = [];
+    let previousTime = startTime;
+
+    // Process touches to calculate gaps
+    touches.forEach(t => {
+        const gapSeconds = (t - previousTime) / 1000;
+        const timeFromStartMins = ((t - startTime) / 1000 / 60).toFixed(0);
+        
+        dataPoints.push(gapSeconds.toFixed(1));
+        labels.push(timeFromStartMins);
+        previousTime = t;
+    });
+
+    // Add final gap (from last touch to end of session)
+    const endTime = startTime + (log.minutes * 60 * 1000);
+    if (endTime > previousTime) {
+        const finalGap = (endTime - previousTime) / 1000;
+        dataPoints.push(finalGap.toFixed(1));
+        labels.push(log.minutes.toFixed(1));
+    }
+
+    // Gradient Red Style
+    const chartHeight = ctx.canvas.clientHeight || 300;
+    const gradient = ctx.createLinearGradient(0, 0, 0, chartHeight);
+    gradient.addColorStop(0, 'rgba(248, 113, 113, 0.6)'); // Red Top
+    gradient.addColorStop(0.5, 'rgba(248, 113, 113, 0.3)'); 
+    gradient.addColorStop(1, 'rgba(248, 113, 113, 0.05)'); // Red Bottom
+
+    this.charts.session = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels, // X-Axis labels (timestamps of touches)
+            datasets: [{
+                label: 'Forgetfulness Interval',
+                data: dataPoints,
+                borderColor: '#f87171', // Red Border
+                backgroundColor: gradient,
+                borderWidth: 2,
+                fill: true,
+                tension: 0.2, // Sharper lines for intervals
+                pointRadius: 0,
+                pointBackgroundColor: '#f87171',
+                pointHoverRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            scales: {
+                x: { 
+                    title: { display: true, text: 'Time (mins)', color: '#9ca3af' }, 
+                    grid: { display: true }, // Hide X grid for cleaner look on event-based data
+                    ticks: { color: '#9ca3af', maxTicksLimit: 15 } 
+                },
+                y: { 
+                    beginAtZero: true, 
+                    title: { display: true, text: 'Delays', color: '#9ca3af' }, 
+                    ticks: { color: '#9ca3af' } 
                 }
             },
             plugins: {
                 tooltip: {
-                    mode: 'index',
-                    intersect: false,
-					displayColors: false,
+                    displayColors: false,
                     callbacks: {
-                        label: function(context) {
-                            const val = context.raw;
-                            // Giải thích mức độ bằng Icon và Chữ
-                            if (val >= 8) return "✨ Mindfulness (" + val + ")";
-                            if (val >= 4) return "🙏 Mindfulness (" + val + ")";
-                            if (val >= 1) return "🌱 Mindfulness (" + val + ")";
-                            return "☁️ Unmindful";
-                        }
+                        title: (items) => `Minute ${items[0].label}`,
+                        label: (c) => `Delay: ${c.raw} secs`
                     }
                 },
                 legend: { display: false }
@@ -1398,6 +1484,7 @@ gradient.addColorStop(1, 'rgba(167, 139, 250, 0.05)');   // Đáy: Trong suốt 
         }
     });
 }
+// --- NEW GRAPH LOGIC END ---
 exportSessionData(timestamp) {
     const log = this.data.logs.find(l => l.timestamp == timestamp);
     if (!log) {
@@ -1823,7 +1910,7 @@ renderReports() {
                     callbacks: {
                         label: function(context) {
                             const value = context.raw || 0;
-                           return ` ${context.label}: ${value} ${unitLabel}`;
+                           return ` ${value} ${unitLabel}`;
                         }
                     }
                 }
@@ -2094,14 +2181,63 @@ clearBackupArea() {
             resetApp() {
                 if (confirm('Delete ALL data?')) { localStorage.removeItem('chronoData'); location.reload(); }
             }
+			deleteSession() {
+    const logId = document.getElementById('s-log-id').value;
+    const goalId = document.getElementById('s-goal-id').value;
+
+    if (!logId) return; // Safety check
+
+    if (confirm('Permanently delete this session from history?')) {
+        // 1. Find the log index
+        const logIndex = this.data.logs.findIndex(l => l.timestamp == logId);
+        if (logIndex === -1) return;
+        
+        const log = this.data.logs[logIndex];
+        const goal = this.data.goals.find(g => g.id === goalId);
+
+        // 2. Subtract stats from the goal totals
+        if (goal) {
+            goal.totalMinutes -= log.minutes;
+            if (goal.totalMinutes < 0) goal.totalMinutes = 0;
+
+            if (goal.type === 'meditation') {
+                const count = log.count !== undefined ? log.count : (log.touches ? log.touches.length : 0);
+                goal.totalMindfulness -= count;
+                if (goal.totalMindfulness < 0) goal.totalMindfulness = 0;
+            }
+        }
+
+        // 3. Remove the log
+        this.data.logs.splice(logIndex, 1);
+
+        // 4. Save and Update UI
+        this.save();
+        this.renderGoals();      // Updates the list immediately
+        this.renderCalendar();   // Updates calendar colors
+        this.renderReports();    // Updates charts
+        this.updateStats();      // Updates streaks/XP
+        
+        this.closeSessionModal();
+        this.showToast('Session deleted!');
+    }
+}
             openSessionModal(goalId, minutes = 0, logId = null, startTime = Date.now()) {
     document.getElementById('session-modal').style.display = 'flex';
     document.getElementById('s-goal-id').value = goalId;
     document.getElementById('s-log-id').value = logId || '';
     document.getElementById('s-date').value = this.toDateTimeInput(startTime);
     document.getElementById('s-minutes').value = minutes;
+
+    // --- NEW: Toggle Delete Button Visibility ---
+    const deleteBtn = document.getElementById('btn-delete-session');
+    if (logId) {
+        deleteBtn.style.display = 'block'; // Show if editing
+    } else {
+        deleteBtn.style.display = 'none';  // Hide if new
+    }
+    // --------------------------------------------
     
-    // --- NEW LOGIC START ---
+    // ... (rest of your existing code for mindfulness check) ...
     const goal = this.data.goals.find(g => g.id === goalId);
     const mindGroup = document.getElementById('s-mindfulness-group');
     const mindInput = document.getElementById('s-mindfulness');
@@ -2111,7 +2247,6 @@ clearBackupArea() {
         let currentCount = 0;
         if (logId) {
             const log = this.data.logs.find(l => l.timestamp == logId);
-            // Check for explicit 'count' or fall back to 'touches' length
             if (log) currentCount = log.count !== undefined ? log.count : (log.touches ? log.touches.length : 0);
         }
         mindInput.value = currentCount;
@@ -2119,7 +2254,6 @@ clearBackupArea() {
         mindGroup.style.display = 'none';
         mindInput.value = 0;
     }
-    // --- NEW LOGIC END ---
 
     let notes = ''; 
     if(logId) { 
@@ -2127,7 +2261,7 @@ clearBackupArea() {
         if(log && log.notes) notes = log.notes; 
     }
     document.getElementById('s-notes').value = notes;
-    document.getElementById('session-title').innerText = logId ? 'Update Log' : 'Add Log';
+    document.getElementById('session-title').innerText = logId ? 'Update log' : 'Add log';
 }
             closeSessionModal() { document.getElementById('session-modal').style.display = 'none'; }
             logSessionConfirm(e) {
