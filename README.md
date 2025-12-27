@@ -98,8 +98,11 @@ The app recognizes your diligence through the following milestones:
 | **Beginner** | 5,000 |
 | **Practitioner** | 10,000 |
 | **Yogi** | 20,000 |
-| **Meditator** | 80,000 |
-| **Meditation Master** | 500,000 |
+| **Meditator** | 50,000 |
+| **Clear Mirror** | 80,000 |
+| **Still Lake** | 100,000 |
+| **Mountain** | 20,000 |
+| **Heir of the Dhamma** | 500,000 |
 
 ---
 
