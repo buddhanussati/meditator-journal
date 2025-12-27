@@ -171,10 +171,51 @@
             font-size: 12px; cursor: pointer; position: relative; border: 1px solid var(--border);
             color: var(--text-light);
         }
-        .calendar-day.has-data { background: #4b5563; color: white; border-color: #6b7280; }
-        .calendar-day.level-1 { background: rgba(99, 102, 241, 0.4); border-color: var(--primary); color: white;} 
-        .calendar-day.level-2 { background: rgba(99, 102, 241, 0.7); border-color: var(--primary); color: white; } 
-        .calendar-day.level-3 { background: var(--primary); border-color: var(--primary-dark); color: white; } 
+                    /* Level 1-5: The Foundation (Indigo spectrum) */
+.calendar-day.level-1 { background: rgba(99, 102, 241, 0.3); border-color: rgba(99, 102, 241, 0.3); color: white; } 
+.calendar-day.level-2 { background: rgba(99, 102, 241, 0.6); border-color: rgba(99, 102, 241, 0.5); color: white; } 
+.calendar-day.level-3 { background: rgba(99, 102, 241, 1); border-color: var(--primary); color: white; } 
+ .calendar-day.level-4 { 
+ 
+background: #4d5eff ; 
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white; 
+}
+.calendar-day.level-5 
+{ background: var(--primary); border-color: var(--primary-dark); color: white; } 
+
+.calendar-day.level-6 { 
+background:  linear-gradient(135deg, var(--primary), #a78bfa);    box-shadow: inset 0 0 8px rgba(255,255,255,0.3);  border: 1px solid rgba(255,255,255,0.2);
+	    color: white; 
+			border-color: gold;
+box-shadow: 0 0 20px #ffffff, 0 0 40px var(--primary);	}
+
+/* Level 7: Right Mindfulness (Deep Royal Purple with a Soft Glow) */
+.calendar-day.level-7 { 
+background: linear-gradient(135deg, #a78bfa, #f472b6);
+    border: 1px solid rgba(255,255,255,0.4);
+box-shadow: 0 0 20px #ffffff, 0 0 40px var(--primary);	    color: white; 
+
+border-color: rgba(251, 191, 36, 1);
+
+}
+
+/* Level 8: Right Concentration (Golden/Sunlight - The Peak) */
+.calendar-day.level-8 { 
+    background: linear-gradient(135deg, #6d28d9, #8b5cf6);
+    border: 1px solid #a78bfa;
+	color: white; 
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
+	border-color: gold;
+	animation: pulse-gold 2s infinite;
+}
+
+
+@keyframes pulse-gold {
+    0% { transform: scale(1); }
+    50% { box-shadow: 0 0 25px rgba(251, 191, 36, 1); }
+    100% { transform: scale(1); }
+}
         .calendar-day:hover { transform: scale(1.1); z-index: 2; box-shadow: 0 0 10px var(--primary); border: 1px solid white; }
 
         /* --- Modal & Inputs --- */
@@ -393,8 +434,27 @@
     </div>
 </section>
 <section id="view-analytics" class="view-section">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-        <h2 style="margin: 0;">Meditation Analytics</h2>
+     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+    <h2 style="margin: 0;">Meditation Analytics</h2>
+    
+   <div id="threshold-config" style="display: flex; align-items: center; gap: 5px; background: var(--surface); padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border);">
+    <span style="font-size: 12px; color: var(--text-light); white-space: nowrap;">
+        <i class="fas fa-stopwatch"></i> Distraction threshold:
+    </span>
+    <input type="number" id="ana-threshold" 
+           style="width: 45px; 
+                  background: rgba(17, 24, 39,0.7); 
+                  border: 1px solid var(--border); 
+                  border-radius: 4px; 
+                  color: var(--primary); 
+                  font-weight: bold; 
+                  text-align: center; 
+                  outline: none;
+                  cursor: pointer;" 
+           value="12" min="1" onchange="app.saveThreshold(this.value)">
+    <span style="font-size: 11px; color: var(--text-light);">secs</span>
+</div>
+
         <select id="ana-time-range" class="form-control" style="width: auto;" onchange="app.renderAnalytics()">
             <option value="7" selected>Last 7 days</option>
             <option value="30">Last 30 days</option>
@@ -1062,7 +1122,11 @@ if (sessionData.length > maxPoints) {
     this.renderComparisonTable(medGoalIds);
 }
 
-// Logic: Gap Analysis
+saveThreshold(val) {
+        localStorage.setItem('ana_threshold', val);
+        this.renderAnalytics(); 
+        this.showToast("Threshold updated: " + val + "s");
+    }
 // If gap > threshold (20s), assume mind wandered.
 analyzeSingleSession(log) {
     // Basic fallback if no touches data
@@ -1071,25 +1135,26 @@ analyzeSingleSession(log) {
     }
 
     const sortedTouches = [...log.touches].sort((a,b) => a - b);
-    const thresholdSec = 12; // Seconds before considering it "Distraction"
+   const thresholdSec = parseInt(document.getElementById('ana-threshold').value) || 12; 
+    
     let distractedSec = 0;
     
     // Check gap from Start to First Touch
     const startGap = (sortedTouches[0] - log.timestamp) / 1000;
-    if (startGap > thresholdSec) distractedSec += (startGap - thresholdSec);
+    if (startGap > thresholdSec) distractedSec += (startGap - thresholdSec/2);
 
     // Check gaps between touches
     for (let i = 1; i < sortedTouches.length; i++) {
         const gap = (sortedTouches[i] - sortedTouches[i-1]) / 1000;
         if (gap > thresholdSec) {
-            distractedSec += (gap - thresholdSec);
+            distractedSec += (gap - thresholdSec/2);
         }
     }
 
     // Check gap from Last Touch to End
     const endTime = log.timestamp + (log.minutes * 60 * 1000);
     const endGap = (endTime - sortedTouches[sortedTouches.length - 1]) / 1000;
-    if (endGap > thresholdSec) distractedSec += (endGap - thresholdSec);
+    if (endGap > thresholdSec) distractedSec += (endGap - thresholdSec/2);
 
     // Cap distracted seconds to total minutes (to avoid calculation errors)
     const totalSec = log.minutes * 60;
@@ -1207,6 +1272,10 @@ getStatsForRange(startTime, endTime, goalIds) {
 				if (!localStorage.getItem('intro_seen')) {
         this.openIntroModal();
     }
+	const savedThreshold = localStorage.getItem('ana_threshold');
+if (savedThreshold) {
+    document.getElementById('ana-threshold').value = savedThreshold;
+}
             }
 
             save() {
@@ -1903,12 +1972,20 @@ fallbackCopyText(text) {
                     const dayEl = document.createElement('div');
                     dayEl.className = 'calendar-day'; dayEl.innerText = i;
                     const totalMins = this.data.logs.filter(l => l.date === dStr).reduce((sum, l) => sum + l.minutes, 0);
-                    if(totalMins > 0) {
-                        dayEl.classList.add('has-data');
-                        if (totalMins > 120) dayEl.classList.add('level-3');
-                        else if (totalMins > 60) dayEl.classList.add('level-2');
-                        else dayEl.classList.add('level-1');
-                    }
+if(totalMins > 0) {
+    dayEl.classList.add('has-data');
+    
+    // The 8-Fold Path Tiers
+    if (totalMins >= 240) dayEl.classList.add('level-8');      // 4h+ (Right Concentration)
+    else if (totalMins >= 180) dayEl.classList.add('level-7'); // 3h+ (Right Mindfulness)
+    else if (totalMins >= 150) dayEl.classList.add('level-6'); // 2.5h+ (Right Effort)
+    else if (totalMins >= 120) dayEl.classList.add('level-5'); // 2h+
+    else if (totalMins >= 90) dayEl.classList.add('level-4');  // 1.5h
+    else if (totalMins >= 60) dayEl.classList.add('level-3');  // 1h
+    else if (totalMins >= 30) dayEl.classList.add('level-2');  // 30m
+    else dayEl.classList.add('level-1');                     // < 30m
+}
+     
                     dayEl.onclick = () => this.openDayStats(dStr);
                     grid.appendChild(dayEl);
                 }
