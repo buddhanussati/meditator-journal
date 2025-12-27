@@ -28,7 +28,6 @@ To use the app effectively, you should understand the following indicators:
 ### 2. Interactive Timer & Recording
 
 * **Meditation Mode:**
-* Visual "breathing" effect (expand/contract) helps regulate breathing rhythm.
 * **Tap-to-Track:** Touch the screen (or click) every time you acknowledge your focus returning to the breath. These counts accumulate as Mindfulness (Sati) points.
 
 <img width="345" height="450" alt="2en" src="https://github.com/user-attachments/assets/d30c6ed0-27d7-4a05-a579-e4732b79f0b1" />
@@ -39,7 +38,7 @@ To use the app effectively, you should understand the following indicators:
 ### 3. Statistics & Data Analysis
 
 * **Dashboard:** View today's progress relative to your set goals.
-* **Practice Calendar:** A grid heatmap showing daily practice intensity. Darker colors represent longer practice durations.
+* **Practice Calendar:** A grid heatmap showing daily practice intensity. More colors represent longer practice durations.
 * **Visual Charts:**
 * **Session Graph:** Review mindfulness levels *within a specific session* (line chart).
 * **Weekly/Monthly Statistics:** Compare performance over real-time intervals.
@@ -101,7 +100,7 @@ The app recognizes your diligence through the following milestones:
 | **Meditator** | 50,000 |
 | **Clear Mirror** | 80,000 |
 | **Still Lake** | 100,000 |
-| **Mountain** | 20,000 |
+| **Mountain** | 200,000 |
 | **Heir of the Dhamma** | 500,000 |
 
 ---
