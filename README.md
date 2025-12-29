@@ -44,9 +44,24 @@ To use the app effectively, you should understand the following indicators:
 * **Weekly/Monthly Statistics:** Compare performance over real-time intervals.
 * **Distribution:** A pie chart showing the percentage of time or mindfulness spent on different goals.
 
+### 4. Meditation Analytics (New)
+
+The **"Analytics"** tab helps you reflect on the quality of your mind during meditation sessions with higher precision.
+
+* **Goal-specific analysis:** You can view data for specific goals (e.g., "Sitting Meditation" or "Walking Meditation") to compare the progress of different practices.
+* **Distraction Threshold:**
+This is the most important concept for calculating your "Meditation Quality."
+> *"Distraction Threshold" is the maximum allowed gap between two mindfulness logs; if this time is exceeded, the system considers you were distracted.*
 
 
-### 4. Privacy & Data Security
+* **How it works:** For example, if you set the threshold to **12 seconds**:
+* If you tap after **5 seconds**: The entire duration is counted as Mindful.
+* If you tap after **20 seconds**: The system calculates that you were distracted or drowsy for **8 seconds** (20 - 12 = 8).
+
+
+* **Individual Customization:** Different practices require different paces. You can set a low threshold (e.g., 5s) for fast-noting exercises, or a higher threshold (e.g., 30s) for deep concentration. The system remembers these settings for each goal individually.
+
+### 5. Privacy & Data Security
 
 * **Fully Offline:** 100% of data is stored directly in your browser. No data is sent to any server.
 * **Backup & Restore:** Easily export data to a `.json` file for safekeeping or to transfer to another device.
