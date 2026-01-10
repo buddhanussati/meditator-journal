@@ -2,7 +2,7 @@ const CACHE_NAME = 'meditator-journal-app-v1';
 // Danh sách các file cần lưu để chạy offline
 const ASSETS = [
   './',
-  './meditator-journal.html',
+  './index.html',
   './css/css.css',
   './css/css2.css',
   './js/chart.js',
@@ -39,4 +39,5 @@ self.addEventListener('fetch', (event) => {
       return response || fetch(event.request);
     })
   );
+
 });
