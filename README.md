@@ -25,14 +25,23 @@ To use the app effectively, you should understand the following indicators:
 
 * **Customization:** Set daily goals (minutes), target completion time, representative colors, and management categories.
 
-### 2. Interactive Timer & Recording
+#### 2. Interaction Settings & Pro Mode (New)
 
-* **Meditation Mode:**
-* **Tap-to-Track:** Touch the screen (or click) every time you acknowledge your focus returning to the breath. These counts accumulate as Mindfulness (Sati) points.
+In the meditation interface, click the ⚙️ button to open interaction settings. The system supports haptic feedback (vibration) & 4 recording modes:
+
+* **Tap:** Basic mode. Lightly tap the screen to count. You can set it to require 1, 2, 3, or 4 taps to register as 1 mindfulness count (helps filter accidental touches).
+* **Hold:** Press and hold the screen for a set duration (default 0.4s) to record. Helps keep the mind grounded and steady.
+* **✨ Auto:** Automatically detects both Tap and Hold gestures.
+* **💎 Pro Mode (Grading):** Assess the focus quality at the moment of noting. The system saves a "quality score" based on your hand gesture:
+>* ● Hold: **High**
+>* ● 3 Taps: **Good**
+>* ● 2 Taps: **Medium**
+>* ● 1 Tap: **Low**
+
+* **Note:** *Haptic feedback (vibration) differing by level requires supported device.*
 
 <img width="345" height="450" alt="2en" src="https://github.com/user-attachments/assets/d30c6ed0-27d7-4a05-a579-e4732b79f0b1" />
 
-* **Focus Mode:** A countdown timer with a visual progress bar.
 * **Manual Entry:** Forgot to start the timer? You can manually log a session or edit previous records.
 
 ### 3. Statistics & Data Analysis
@@ -42,9 +51,9 @@ To use the app effectively, you should understand the following indicators:
 * **Visual Charts:**
 * **Session Graph:** Review mindfulness levels *within a specific session* (line chart).
 * **Weekly/Monthly Statistics:** Compare performance over real-time intervals.
-* **Distribution:** A pie chart showing the percentage of time or mindfulness spent on different goals.
+* **💎 Pro Chart:** The "Advanced" tab displays the distribution of focus quality (High/Low) over weeks.
 
-### 4. Meditation Analytics (New)
+### 4. Meditation Analytics
 
 The **"Analytics"** tab helps you reflect on the quality of your mind during meditation sessions with higher precision.
 
@@ -122,7 +131,7 @@ The app recognizes your diligence through the following milestones:
 
 ## ⚠️ Important Data Notice
 
-Your data is stored in the browser's **Local Storage**.
+Your data is stored in the browser's **IndexedDB** (Secure & Large capacity).
 
 1. **Do not clear browser history/cache** without backing up, or your data will be lost.
 2. **How to Backup:** Go to the left sidebar, select **"Backup"** to download the file to your computer/phone.
@@ -134,7 +143,7 @@ Your data is stored in the browser's **Local Storage**.
 ## 💡 Technologies Used
 
 * **Core:** HTML5, CSS3, JavaScript (ES6+).
-* **Storage:** LocalStorage API.
+* **Storage:** IndexedDB API.
 * **Third-party Libraries (via CDN):**
 * [Chart.js](https://www.chartjs.org/) - For data visualization.
 * [FontAwesome](https://fontawesome.com/) - Interface icons.
