@@ -38,7 +38,7 @@ In the meditation interface, click the ⚙️ button to open interaction setting
 >* ● 2 Taps: **Medium**
 >* ● 1 Tap: **Low**
 
-* **Note:** *Haptic feedback requires the device to support vibration mode.*
+* **Note:** *Haptic feedback requires a device that supports vibration mode.*
 
 <img width="345" height="450" alt="2en" src="https://github.com/user-attachments/assets/d30c6ed0-27d7-4a05-a579-e4732b79f0b1" />
 
