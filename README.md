@@ -34,10 +34,11 @@ In the meditation interface, click the ⚙️ button to open interaction setting
 * **✨ Auto:** Automatically detects both Tap and Hold gestures.
 * **💎 Pro Mode (Grading):** Assess the focus quality at the moment of noting. The system saves a "quality score" based on your hand gesture:
 >* ● Hold: **High**
->* ● 3 Taps: **Good**
->* ● 2 Taps: **Medium**
 >* ● 1 Tap: **Low**
-
+>* ● 2 Taps: **Medium**
+>* ● Hold: **Good**
+>* ● 10+ Good*: **High**
+* **10+ Good:** *Focus at 'Good' level for 10 consecutive times or more; each consecutive subsequent will be counted as 'High' level.*
 * **Note:** *Haptic feedback requires a device that supports vibration mode.*
 
 <img width="345" height="450" alt="2en" src="https://github.com/user-attachments/assets/d30c6ed0-27d7-4a05-a579-e4732b79f0b1" />
