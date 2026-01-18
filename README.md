@@ -25,7 +25,7 @@ To use the app effectively, you should understand the following indicators:
 
 * **Customization:** Set daily goals (minutes), target completion time, representative colors, and management categories.
 
-#### 2. Interaction Settings
+### 2. Interaction Settings
 
 In the meditation interface, click the <i class="fas fa-cog"></i> button to open interaction settings. The app supports haptic feedback (vibration) & 4 recording modes:
 
