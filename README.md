@@ -25,21 +25,33 @@ To use the app effectively, you should understand the following indicators:
 
 * **Customization:** Set daily goals (minutes), target completion time, representative colors, and management categories.
 
-#### 2. Interaction Settings & Pro Mode (New)
+#### 2. Interaction Settings
 
-In the meditation interface, click the ⚙️ button to open interaction settings. The system supports haptic feedback (vibration) & 4 recording modes:
+In the meditation interface, click the <i class="fas fa-cog"></i> button to open interaction settings. The app supports haptic feedback (vibration) & 4 recording modes:
 
 * **Tap:** Basic mode. Lightly tap the screen to count. You can set it to require 1, 2, 3, or 4 taps to register as 1 mindfulness count (helps filter accidental touches).
 * **Hold:** Press and hold the screen for a set duration (default 0.4s) to record. Helps keep the mind grounded and steady.
 * **✨ Auto:** Automatically detects both Tap and Hold gestures.
-* **💎 Pro Mode (Grading):** Assess the focus quality at the moment of noting. The system saves a "quality score" based on your hand gesture:
->* ● Hold: **High**
->* ● 1 Tap: **Low**
->* ● 2 Taps: **Medium**
->* ● Hold: **Good**
->* ● 10+ Good*: **High**
-* **10+ Good:** *Focus at 'Good' level for 10 consecutive times or more; each consecutive subsequent will be counted as 'High' level.*
-* **Note:** *Haptic feedback requires a device that supports vibration mode.*
+* ***Combo Mechanism:*** All modes start at the **Low** focus level. For every 10 consecutive entries (or 20 for Medium level) with a time gap ≤ *Distraction Threshold*, the focus level will upgrade by one tier (Low → Mid → Good → High). If the time gap exceeds the threshold, the combo resets to Low.
+* **💎 Pro Mode (Manual):** Allows you to **actively categorize** your focus level based on specific hand gestures:
+* ● 1 Tap: **Low**
+* ● Hold: **Good**
+* ● 2 Taps: **Medium**
+* ● 10+ Good*: **High**
+
+
+
+> **⚡ Confirmation Mode:**
+> Designed for users who may tap the screen mindlessly. When enabled, the first touch is not counted immediately. You must tap a second time (within 1-3 seconds) to confirm it was a mindful action.
+> * Only the timestamp of the **first** touch is recorded.
+> * Confirmation mode only applies to the **Low** level.
+> 
+> 
+
+*10+ Good: Focus at 'Good' level for 10 consecutive times or more; each consecutive subsequent will be counted as 'High' level.*
+*Note: Haptic feedback requires a device that supports vibration mode.*
+
+* **Manual Entry:** Forgot to start the timer? You can manually log a session or edit previous records.
 
 <img width="345" height="450" alt="2en" src="https://github.com/user-attachments/assets/d30c6ed0-27d7-4a05-a579-e4732b79f0b1" />
 
@@ -101,33 +113,31 @@ This is the most important concept for calculating your "Meditation Quality."
 
 ---
 
-## ✨ Practice Achievement System
+## ✨ The Pāramī System (Achievements)
 
-The app recognizes your diligence through the following milestones:
+The achievements system is organized into Pāramīs (Virtues) to encourage your diligence. Your progress is further categorized into spiritual faculties (Indrīya) & powers (Bala). Here are some key milestones:
 
-### Consistency Milestones (Streak)
+**Consistency Milestones (Saddhā-bala):**
 
-| Title | Condition | Meaning |
+| Streak | Badge Title | Significance |
 | --- | --- | --- |
-| **Effort** | 3 consecutive days | Initially overcoming inertia. |
-| **Striving** | 10 consecutive days | Starting to form a habit. |
-| **Diligence** | 30 consecutive days | Habit is becoming stable. |
-| **Ardor** | 60 consecutive days | Practice becomes firm and steady. |
-| **Viriya-sambojjhanga** | 365 consecutive days | Extraordinary perseverance for one year. |
+| 3 Days | Walking Path | Stepping onto the path. |
+| 7 Days | Blessings | Generating wholesome roots. |
+| 30 Days | Willpower | Determination becomes habit. |
+| 100 Days | Lion’s Roar | Fearless consistency. |
+| 365 Days | Timeless | Practice beyond time. |
 
-### Mindfulness Milestones
+**Mindfulness Milestones (Sati-indrīya):**
 
-| Level | Mindfulness Points (Sati) |
+| Count | Badge Title |
 | --- | --- |
-| **Beginner** | 5,000 |
-| **Practitioner** | 10,000 |
-| **Yogi** | 20,000 |
-| **Meditator** | 50,000 |
-| **Clear Mirror** | 80,000 |
-| **Still Lake** | 100,000 |
-| **Mountain** | 200,000 |
-| **Heir of the Dhamma** | 500,000 |
+| 100 | One-Pointedness |
+| 1,000 | Contentment |
+| 10,000 | Offering |
+| 50,000 | Bliss |
+| 100,000 | Suchness |
 
+> ** Other achievements track **Total Time (Viriya)**, **Session Frequency**, and **Concentration Levels (Samādhi)**.*
 ---
 
 ## ⚠️ Important Data Notice
