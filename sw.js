@@ -1,13 +1,13 @@
-const CACHE_NAME = 'meditator-journal-app-v6';
+const CACHE_NAME = 'hanhgia-app-v6';
 // Danh sách các file cần lưu để chạy offline
 const ASSETS = [
   './',
-  './index.html',
+  './nhatky-hanhgia.html',
   './css/css.css',
   './js/chart.js',
-  './js/mj.js',
-  './images/1en.png',
-  './images/2en.png',
+  './js/nh.js',
+  './images/1vi.png',
+  './images/2vi.png',
   './webfonts/fa-brands-400.woff2',
   './webfonts/fa-regular-400.woff2',
   './webfonts/fa-solid-900.woff2',
