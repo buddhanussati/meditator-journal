@@ -27,31 +27,24 @@ To use the app effectively, you should understand the following indicators:
 
 ### 2. Interaction Settings
 
-In the meditation interface, click the <i class="fas fa-cog"></i> button to open interaction settings. The app supports haptic feedback (vibration) & 4 recording modes:
+In the meditation interface, tap the **setting** button to open interaction settings. The app supports haptic feedback vibration and helps you record two mental states simultaneously with 4 levels of mindfulness intensity.
 
-* **Tap:** Basic mode. Lightly tap the screen to count. You can set it to require 1, 2, 3, or 4 taps to register as 1 mindfulness count (helps filter accidental touches).
-* **Hold:** Press and hold the screen for a set duration (default 0.4s) to record. Helps keep the mind grounded and steady.
-* **✨ Auto:** Automatically detects both Tap and Hold gestures.
-* ***Combo Mechanism:*** All modes start at the **Low** focus level. For every 10 consecutive entries (or 20 for Medium level) with a time gap ≤ *Distraction Threshold*, the focus level will upgrade by one tier (Low → Mid → Good → High). If the time gap exceeds the threshold, the combo resets to Low.
-* **💎 Pro Mode (Manual):** Allows you to **actively categorize** your focus level based on specific hand gestures:
-* ● 1 Tap: **Low**
-* ● Hold: **Good**
-* ● 2 Taps: **Medium**
-* ● 10+ Good*: **High**
+* **👆 Tap = Mindfulness (Keeping the mind on the Object):**
+Lightly tap the screen to record focus on your meditation object. For example: one tap for each full breath (in & out) counts as one mindfulness.
+> ***Combo Mechanism:*** Every session starts at **Low** intensity. For every 12 or 20 consecutive entries with a time gap ≤ *Distraction Threshold*, the mindfulness level increases by one tier (Low → Mid → Good → High). Exceeding the threshold resets the combo to Low.
 
 
+* **👆⏳ Hold = Awareness (Recognizing mental states, Detecting distractions):**
+Press and hold the screen to record Awareness. Awareness is when you **realize** your current state of mind (e.g., catching your mind wandering, having stray thoughts, or losing focus on the object). This is the moment of recognition and returning.
 
-> **⚡ Confirmation Mode:**
-> Designed for users who may tap the screen mindlessly. When enabled, the first touch is not counted immediately. You must tap a second time (within 1-3 seconds) to confirm it was a mindful action.
-> * Only the timestamp of the **first** touch is recorded.
-> * Confirmation mode only applies to the **Low** level.
-> 
-> 
 
-*10+ Good: Focus at 'Good' level for 10 consecutive times or more; each consecutive subsequent will be counted as 'High' level.*
-*Note: Haptic feedback requires a device that supports vibration mode.*
+#### **Confirmation Mode**
 
-* **Manual Entry:** Forgot to start the timer? You can manually log a session or edit previous records.
+Designed for users who may tap unconsciously. When enabled, the first tap won't be recorded immediately. You must tap a second time (within 1-3 seconds) to confirm it as a conscious action.
+
+* Only the timestamp of the **first** tap is recorded.
+* Confirmation mode only applies when the mindfulness level is at **Low**.
+* **Note:** *Haptic feedback requires a device that supports vibration mode.*
 
 <img width="345" height="450" alt="2en" src="https://github.com/user-attachments/assets/d30c6ed0-27d7-4a05-a579-e4732b79f0b1" />
 
