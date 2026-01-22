@@ -108,11 +108,11 @@ This is the most important concept for calculating your "Meditation Quality."
 
 ## ✨ The Pāramī System (Achievements)
 
-The achievements system is organized into Pāramīs (Virtues) to encourage your diligence. Your progress is further categorized into spiritual faculties (Indrīya) & powers (Bala). Here are some key milestones:
+The achievements system is organized into Pāramīs (Perfection) to encourage your diligence. Your progress is further categorized into spiritual faculties (Indrīya) & powers (Bala). Here are some key milestones:
 
 **Consistency Milestones (Saddhā-bala):**
 
-| Streak | Badge Title | Significance |
+| Streak | Pāramī | Significance |
 | --- | --- | --- |
 | 3 Days | Walking Path | Stepping onto the path. |
 | 7 Days | Blessings | Generating wholesome roots. |
@@ -122,7 +122,7 @@ The achievements system is organized into Pāramīs (Virtues) to encourage your 
 
 **Mindfulness Milestones (Sati-indrīya):**
 
-| Count | Badge Title |
+| Count | Pāramī |
 | --- | --- |
 | 100 | One-Pointedness |
 | 1,000 | Contentment |
