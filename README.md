@@ -34,8 +34,8 @@ Lightly tap the screen to record focus on your meditation object. For example: o
 > ***Combo Mechanism:*** Every session starts at **Low** intensity. For every 12 or 20 consecutive entries with a time gap ≤ *Mindfulness Threshold*, the mindfulness level increases by one tier (Low → Mid → Good → High). Exceeding the threshold resets the combo to Low.
 
 
-* **👆⏳ Hold = Awareness (Recognizing mental states, Detecting distractions):**
-Press and hold the screen to record Awareness. Awareness is when you **realize** your current state of mind (e.g., catching your mind wandering, having stray thoughts, or losing focus on the object). This is the moment of recognition and returning.
+* **👆⏳ Hold = Alertness (Recognizing mental states, Detecting distractions):**
+Press and hold the screen to record Alertness. Alertness is when you **realize** your current state of mind (e.g., catching your mind wandering, having stray thoughts, or losing focus on the object). This is the moment of recognition and returning.
 
 
 #### **Confirmation Mode**
