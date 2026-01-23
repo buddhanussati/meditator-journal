@@ -31,7 +31,7 @@ In the meditation interface, tap the **setting** button to open interaction sett
 
 * **👆 Tap = Mindfulness (Keeping the mind on the Object):**
 Lightly tap the screen to record focus on your meditation object. For example: one tap for each full breath (in & out) counts as one mindfulness.
-> ***Combo Mechanism:*** Every session starts at **Low** intensity. For every 12 or 20 consecutive entries with a time gap ≤ *Distraction Threshold*, the mindfulness level increases by one tier (Low → Mid → Good → High). Exceeding the threshold resets the combo to Low.
+> ***Combo Mechanism:*** Every session starts at **Low** intensity. For every 12 or 20 consecutive entries with a time gap ≤ *Mindfulness Threshold*, the mindfulness level increases by one tier (Low → Mid → Good → High). Exceeding the threshold resets the combo to Low.
 
 
 * **👆⏳ Hold = Awareness (Recognizing mental states, Detecting distractions):**
@@ -64,9 +64,9 @@ Designed for users who may tap unconsciously. When enabled, the first tap won't 
 The **"Analytics"** tab helps you reflect on the quality of your mind during meditation sessions with higher precision.
 
 * **Goal-specific analysis:** You can view data for specific goals (e.g., "Sitting Meditation" or "Walking Meditation") to compare the progress of different practices.
-* **Distraction Threshold:**
+* **Mindfulness Threshold:**
 This is the most important concept for calculating your "Meditation Quality."
-> *"Distraction Threshold" is the maximum allowed gap between two mindfulness logs; if this time is exceeded, the system considers you were distracted.*
+> *"Mindfulness Threshold" is the maximum allowed gap between two mindfulness logs; if this time is exceeded, the system considers you were distracted.*
 
 
 * **How it works:** For example, if you set the threshold to **12 seconds**:
