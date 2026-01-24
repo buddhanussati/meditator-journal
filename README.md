@@ -31,8 +31,12 @@ In the meditation interface, tap the **setting** button to open interaction sett
 
 * **👆 Tap = Mindfulness (Keeping the mind on the Object):**
 Lightly tap the screen to record focus on your meditation object. For example: one tap for each full breath (in & out) counts as one mindfulness.
-> ***Combo Mechanism:*** Every session starts at **Low** intensity. For every 12 or 20 consecutive entries with a time gap ≤ *Mindfulness Threshold*, the mindfulness level increases by one tier (Low → Mid → Good → High). Exceeding the threshold resets the combo to Low.
-
+> ***Combo Mechanism:*** Every session starts at **Low** intensity. For every 15 consecutive entries with a time gap ≤ *Distraction Threshold*, the mindfulness level increases by one tier **(Low → Medium → Good → High)**. Exceeding the threshold resets the combo to Low.
+> 
+> **Manual control:** Allows you to **actively categorize** your focus level based on specific hand gestures:
+>* ● 1 Tap: **Low**
+>* ● 2 Taps: **Medium**
+>* ● 3 Taps: **Good**
 
 * **👆⏳ Hold = Alertness (Recognizing mental states, Detecting distractions):**
 Press and hold the screen to record Alertness. Alertness is when you **realize** your current state of mind (e.g., catching your mind wandering, having stray thoughts, or losing focus on the object). This is the moment of recognition and returning.
@@ -57,16 +61,16 @@ Designed for users who may tap unconsciously. When enabled, the first tap won't 
 * **Visual Charts:**
 * **Session Graph:** Review mindfulness levels *within a specific session* (line chart).
 * **Weekly/Monthly Statistics:** Compare performance over real-time intervals.
-* **💎 Pro Chart:** The "Advanced" tab displays the distribution of focus quality (High/Low) over weeks.
+* **💎 Pro Chart:** The "Advanced" tab displays the distribution of focus level (High/Low) over weeks.
 
 ### 4. Meditation Analytics
 
 The **"Analytics"** tab helps you reflect on the quality of your mind during meditation sessions with higher precision.
 
 * **Goal-specific analysis:** You can view data for specific goals (e.g., "Sitting Meditation" or "Walking Meditation") to compare the progress of different practices.
-* **Mindfulness Threshold:**
+* **Distraction Threshold:**
 This is the most important concept for calculating your "Meditation Quality."
-> *"Mindfulness Threshold" is the maximum allowed gap between two mindfulness logs; if this time is exceeded, the system considers you were distracted.*
+> *"Distraction Threshold" is the maximum allowed gap between two mindfulness logs; if this time is exceeded, the system considers you were distracted.*
 
 
 * **How it works:** For example, if you set the threshold to **12 seconds**:
@@ -108,9 +112,9 @@ This is the most important concept for calculating your "Meditation Quality."
 
 ## ✨ The Pāramī System (Achievements)
 
-The achievements system is organized into Pāramīs (Perfection) to encourage your diligence. Your progress is further categorized into spiritual faculties (Indrīya) & powers (Bala). Here are some key milestones:
+The achievements system is organized into Pāramīs (Perfection) to encourage your diligence. Here are some key milestones:
 
-**Consistency Milestones (Saddhā-bala):**
+**Consistency Milestones:**
 
 | Streak | Pāramī | Significance |
 | --- | --- | --- |
@@ -120,7 +124,7 @@ The achievements system is organized into Pāramīs (Perfection) to encourage yo
 | 100 Days | Lion’s Roar | Fearless consistency. |
 | 365 Days | Timeless | Practice beyond time. |
 
-**Mindfulness Milestones (Sati-indrīya):**
+**Mindfulness Milestones:**
 
 | Count | Pāramī |
 | --- | --- |
@@ -130,7 +134,7 @@ The achievements system is organized into Pāramīs (Perfection) to encourage yo
 | 50,000 | Bliss |
 | 100,000 | Suchness |
 
-> ** Other achievements track **Total Time (Viriya)**, **Session Frequency**, and **Concentration Levels (Samādhi)**.*
+
 ---
 
 ## ⚠️ Important Data Notice
