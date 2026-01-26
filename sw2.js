@@ -1,10 +1,12 @@
-const CACHE_NAME = 'meditator-journal-app-v6';
+const CACHE_NAME = 'meditator-journal-app-v17';
 // Danh sách các file cần lưu để chạy offline
 const ASSETS = [
   './',
   './index.html',
   './css/css.css',
   './js/chart.js',
+  './js/dhammapada.js',
+  './js/parami.js',
   './js/mj.js',
   './images/1en.png',
   './images/2en.png',

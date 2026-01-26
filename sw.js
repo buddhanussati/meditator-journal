@@ -1,10 +1,12 @@
-const CACHE_NAME = 'hanhgia-app-v6';
+const CACHE_NAME = 'hanhgia-app-v17';
 // Danh sách các file cần lưu để chạy offline
 const ASSETS = [
   './',
   './nhatky-hanhgia.html',
   './css/css.css',
   './js/chart.js',
+  './js/phapcu.js',
+  './js/badges.js',
   './js/nh.js',
   './images/1vi.png',
   './images/2vi.png',
