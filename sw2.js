@@ -4,6 +4,7 @@ const ASSETS = [
   './',
   './index.html',
   './css/css.css',
+  './css/css2.css',
   './js/chart.js',
   './js/dhammapada.js',
   './js/parami.js',
@@ -46,4 +47,5 @@ self.addEventListener('fetch', (event) => {
       return response || fetch(event.request);
     })
   );
+
 });
