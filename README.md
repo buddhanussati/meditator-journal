@@ -61,7 +61,7 @@ Designed for users who may tap unconsciously. When enabled, the first tap won't 
 * **Visual Charts:**
 * **Session Graph:** Review mindfulness levels *within a specific session* (line chart).
 * **Weekly/Monthly Statistics:** Compare performance over real-time intervals.
-* **💎 Pro Chart:** The "Advanced" tab displays the distribution of focus level (High/Low) over weeks.
+* **Focus Level Chart:** The "Exploration" tab displays the distribution of focus level (High/Low) over weeks.
 
 ### 4. Meditation Analytics
 
