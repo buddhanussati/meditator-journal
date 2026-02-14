@@ -20,10 +20,10 @@ To use the app effectively, you should understand the following indicators:
 
 * **Two main types of goals:**
 * **ॐ Meditation:** Tracks meditation duration and counts mindfulness ("Sati") recognitions. The interface features a breathing circle to support focus.
-* **⚡ Work (Standard):** A traditional countdown timer used for work, study (similar to Pomodoro), or other habits.
+* **⚡ Cultivation:** A traditional countdown timer used for work, study or other practice.
 
 
-* **Customization:** Set daily goals (minutes), target completion time, representative colors, and management categories.
+* **Customization:** Set daily goals, target completion time, representative colors, and management categories.
 
 ### 2. Interaction Settings
 
