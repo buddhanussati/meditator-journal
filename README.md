@@ -40,11 +40,19 @@ Lightly tap the screen to record focus on your meditation object. For example: o
 
 * **👆⏳ Hold = Alertness (Recognizing mental states, Detecting distractions):**
 Press and hold the screen to record Alertness. Alertness is when you **realize** your current state of mind (e.g., catching your mind wandering, having stray thoughts, or losing focus on the object). This is the moment of recognition and returning.
+> ***Reminder Mode:*** If you continue to hold longer after registering alertness **(exceeding distraction threshold)**, the system will trigger **random vibrations** to help you stay awake. Since this is system-assisted support, awareness points will not be awarded for these instances.
 
+#### 🔔 Guided Meditation Mode
 
-#### **Confirmation Mode**
+*Acts like a gentle tap from a Zen master to awaken your mindfulness.*
 
-Designed for users who may tap unconsciously. When enabled, the first tap won't be recorded immediately. You must tap a second time (within 1-3 seconds) to confirm it as a conscious action.
+* The system utilizes your custom **Vibration Interval** to maintain a steady guiding rhythm for the meditation session.
+* Haptic signals (gentle and varied) are **randomized** in both intensity and timing (varying slightly around your chosen setting). This keeps the mind alert and prevents the formation of "autopilot" or unconscious reflexes.
+* **Your task:** Every time you feel the vibration, use it as an anchor — check where your mind is, gently pull it back to the present, and register a mindfulness touch.
+  
+#### ✔️ Confirmation Mode
+
+*Designed for users who may tap unconsciously.* When enabled, the first tap won't be recorded immediately. You must tap a second time (within 1-3 seconds) to confirm it as a conscious action.
 
 * Only the timestamp of the **first** tap is recorded.
 * Confirmation mode only applies when the mindfulness level is at **Low**.
