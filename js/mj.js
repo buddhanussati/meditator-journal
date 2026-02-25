@@ -1255,7 +1255,7 @@ scheduleNextGuidedVibration() {
     if (!this.meditationState.active || this.meditationState.paused || !this.meditationState.guidedMode) return;
 
     // Sử dụng thông số slider mới thay vì dùng chung với ngưỡng mất tập trung
-    const x = this.meditationState.guidedInterval || 12; 
+    const x = this.meditationState.guidedInterval || 9; 
     const variations = [-1, 0, 1, 2, 3];
     const randomVariation = variations[Math.floor(Math.random() * variations.length)];
     
@@ -1313,12 +1313,12 @@ triggerRandomWakeVibration() {
 
     // Generate an unpredictable vibration pattern
     // Array format: [vibrate, pause, vibrate, pause, ...]
-    const patternLength = Math.floor(Math.random() * 4) + 2; // Randomly 2 to 5 bursts
+    const patternLength = Math.floor(Math.random() * 2) + 2; // Randomly 2 to 5 bursts
     const pattern = [];
     
     for (let i = 0; i < patternLength; i++) {
         // Vibrate duration: Random between 30ms and 150ms (sharp vs heavy)
-        pattern.push(Math.floor(Math.random() * 120) + 30);
+        pattern.push(Math.floor(Math.random() * 61) + 30);
         // Pause duration: Random between 20ms and 80ms
         pattern.push(Math.floor(Math.random() * 60) + 20);
     }
@@ -2186,6 +2186,7 @@ renderComparisonTable(medGoalIds) {
                     stacked: true, display: true,
                     grid: { display: true, color: 'rgba(55, 65, 81, 0.5)' },
                     ticks: { 
+					    precision: 0,
                         display: true, color: '#9ca3af', font: { size: 10 },
                         callback: function(value) { return formatTime(value); }
                     }
@@ -2244,6 +2245,7 @@ renderComparisonTable(medGoalIds) {
                 grid: { color: '#374151' }, 
                 title: { display: false }, 
                 ticks: { 
+				    precision: 0,
                     color: '#9ca3af', font: { size: 10 },
                     callback: function(value) { return formatTime(value); }
                 } 
@@ -4977,7 +4979,7 @@ document.getElementById('breakdown-title').innerText = breakdownTitle;
             (this.reportMode === 'time' && isGoalTime)) {
             goalDatasets[goal.id] = {
                 name: goal.name, color: goal.color,
-                breakdownTotal: 0, weekly: new Array(7).fill(0), monthly: new Array(monthlyLabels.length).fill(0)
+                breakdownTotal: 0, weekly: new Array(7).fill(0), monthly: new Array(monthlyLabels.length).fill(0), lastActivity: 0 //
             };
         }
     });
@@ -4990,7 +4992,9 @@ document.getElementById('breakdown-title').innerText = breakdownTitle;
             let logDateObj;
             if (!logTime) { logDateObj = new Date(log.date); logTime = logDateObj.getTime(); }
             else { logDateObj = new Date(logTime); }
-
+            if (logTime > goalDatasets[log.goalId].lastActivity) {
+            goalDatasets[log.goalId].lastActivity = logTime;
+        }
             if (logTime >= filterStart && logTime < filterEnd) {
                 goalDatasets[log.goalId].breakdownTotal += value;
             }
@@ -5009,7 +5013,12 @@ document.getElementById('breakdown-title').innerText = breakdownTitle;
     // Lọc dữ liệu hiển thị
     // Biểu đồ tròn: Chỉ hiện những cái > 0
     const activeDataForDoughnut = datasets.filter(d => d.breakdownTotal > 0);
-    // Biểu đồ cột: Hiện tất cả (hoặc lọc nếu muốn gọn)
+   const top5Indices = activeDataForDoughnut
+        .map((d, index) => ({ index, lastActivity: d.lastActivity || 0 }))
+        .sort((a, b) => b.lastActivity - a.lastActivity)
+        .slice(0, 5)
+        .map(x => x.index);
+    
     const allDataForBars = datasets; 
 
     const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -5030,12 +5039,12 @@ document.getElementById('breakdown-title').innerText = breakdownTitle;
             ticks: {
                 color: '#9ca3af',
                 font: { size: 11 },
-                // NEW: Convert axis units to hours if in time mode
+                precision: 0,
                 callback: function(value) {
                     if (isTimeMode) {
                         if (value === 0) return 0;
                         if (value < 60) return value.toFixed(0) + 'm';
-                        return (value / 60).toFixed(0) + 'h';
+                        return (value / 60).toFixed(1) + 'h';
                     }
                     return value; // Keep as is for Mindfulness/Count mode
                 }
@@ -5156,7 +5165,10 @@ document.getElementById('breakdown-title').innerText = breakdownTitle;
         options: {
             maintainAspectRatio: false,
             plugins: {
-                legend: { labels: { color: '#9ca3af' }, position: 'bottom' },
+                 legend: { labels: { color: '#9ca3af', filter: function(item, chart) {
+                            if (activeDataForDoughnut.length <= 5) return true;
+                            return top5Indices.includes(item.index);
+                        } }, position: 'bottom' },
                 title: { display: activeDataForDoughnut.length === 0, text: 'No data available', position: 'bottom', color: '#6b7280' },
                 tooltip: {
                     backgroundColor: '#121821', titleColor: '#f3f4f6', bodyColor: '#f3f4f6', borderColor: '#374151', borderWidth: 1, padding: 10, z: 999,
