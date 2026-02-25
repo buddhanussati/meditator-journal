@@ -1210,14 +1210,14 @@ triggerGuidedVibration() {
     
     // Pattern rung ngẫu nhiên như yêu cầu
     if (settings.vibration && navigator.vibrate) {
-        const patternLength = Math.floor(Math.random() * 4) + 2; // Randomly 2 to 5 bursts
+        const patternLength = Math.floor(Math.random() * 2) + 2; // Randomly 2 to 5 bursts
         const pattern = [];
         
         for (let i = 0; i < patternLength; i++) {
             // Vibrate duration: Random between 30ms and 150ms
-            pattern.push(Math.floor(Math.random() * 120) + 30);
-            // Pause duration: Random between 20ms and 80ms
-            pattern.push(Math.floor(Math.random() * 60) + 20);
+            pattern.push(Math.floor(Math.random() * 31) + 60);
+        // Pause duration: Random between 20ms and 80ms
+        pattern.push(Math.floor(Math.random() * 50) + 100);
         }
         navigator.vibrate(pattern);
     }
@@ -1249,14 +1249,14 @@ triggerRandomWakeVibration() {
 
     // Generate an unpredictable vibration pattern
     // Array format: [vibrate, pause, vibrate, pause, ...]
-    const patternLength = Math.floor(Math.random() * 2) + 2; // Randomly 2 to 5 bursts
+    const patternLength = Math.floor(Math.random() * 2) + 2; 
     const pattern = [];
     
     for (let i = 0; i < patternLength; i++) {
         // Vibrate duration: Random between 30ms and 150ms (sharp vs heavy)
-        pattern.push(Math.floor(Math.random() * 61) + 30);
+        pattern.push(Math.floor(Math.random() * 31) + 60);
         // Pause duration: Random between 20ms and 80ms
-        pattern.push(Math.floor(Math.random() * 60) + 20);
+        pattern.push(Math.floor(Math.random() * 50) + 100);
     }
     
     navigator.vibrate(pattern);
@@ -3137,6 +3137,7 @@ updateEfficiencyDisplay() {
     this.renderGoals();
     this.renderReports();
 	this.renderCalendar();
+	this.renderDate();
     const newBadges = this.checkAchievements(true);
     
     document.getElementById('meditation-finish-modal').style.display = 'none';
@@ -3232,7 +3233,7 @@ openMedSettings() {
     let currentConfirmMode = s.confirmMode || false;
     let currentConfirmProb = (typeof s.confirmProbability !== 'undefined') ? s.confirmProbability : 100;
     let currentGuidedMode = s.guidedMode || false;
-    let currentGuidedInterval = s.guidedInterval || 12; // Mặc định 12s
+    let currentGuidedInterval = s.guidedInterval || 9; // Mặc định 12s
 
     if (this.meditationState && this.meditationState.active) {
         const goal = this.data.goals.find(g => g.id === this.meditationState.goalId);
@@ -3261,7 +3262,16 @@ openMedSettings() {
     
     this.toggleConfirmSlider(); 
     this.toggleGuidedSlider(); // Gọi hàm hiển thị khối slider mới
-    
+    // --- THÊM ĐOẠN NÀY VÀO ĐỂ ẨN/HIỆN THEO TRẠNG THÁI THI ---
+    const guidedModeGroup = document.getElementById('setting-guided-mode-group');
+    if (guidedModeGroup) {
+        if (this.meditationState && this.meditationState.active && this.meditationState.isExam) {
+            guidedModeGroup.style.display = 'none'; // Ẩn khi đang thi
+        } else {
+            guidedModeGroup.style.display = 'block'; // Hiện bình thường
+        }
+    }
+    // --------------------------------------------------------
     const modal = document.getElementById('med-settings-modal');
     modal.style.display = 'flex';
 }
@@ -3295,17 +3305,27 @@ saveMedSettings() {
     this.save();
     
     // Kích hoạt/Cập nhật liền ngay trong phiên
-    if (this.meditationState && this.meditationState.active) {
-        this.meditationState.guidedMode = guidedModeVal;
-        this.meditationState.guidedInterval = guidedIntervalVal; // Áp dụng thông số mới
-        
-        if (guidedModeVal) {
-            // Xóa timeout cũ để apply khoảng thời gian mới lập tức
-            if (this.meditationState.guidedTimeout) clearTimeout(this.meditationState.guidedTimeout);
-            this.scheduleNextGuidedVibration();
-        } else if (!guidedModeVal && this.meditationState.guidedTimeout) {
-            clearTimeout(this.meditationState.guidedTimeout);
-            this.meditationState.guidedTimeout = null;
+   if (this.meditationState && this.meditationState.active) {
+        // KIỂM TRA NẾU ĐANG THI CUỐI KHÓA THÌ CHẶN BẬT DẪN THIỀN
+        if (this.meditationState.isExam) {
+            this.meditationState.guidedMode = false;
+            if (this.meditationState.guidedTimeout) {
+                clearTimeout(this.meditationState.guidedTimeout);
+                this.meditationState.guidedTimeout = null;
+            }
+        } else {
+            // Logic bình thường cho các thời thiền tiêu chuẩn
+            this.meditationState.guidedMode = guidedModeVal;
+            this.meditationState.guidedInterval = guidedIntervalVal; // Áp dụng thông số mới
+            
+            if (guidedModeVal) {
+                // Xóa timeout cũ để apply khoảng thời gian mới lập tức
+                if (this.meditationState.guidedTimeout) clearTimeout(this.meditationState.guidedTimeout);
+                this.scheduleNextGuidedVibration();
+            } else if (!guidedModeVal && this.meditationState.guidedTimeout) {
+                clearTimeout(this.meditationState.guidedTimeout);
+                this.meditationState.guidedTimeout = null;
+            }
         }
     }
 }
@@ -3865,7 +3885,7 @@ startExamSession(goalId) {
         quoteInterval: null,
         currentAutoLevel: 4, comboCounter: 0, lastTouchTime: now,
         consecutiveGoodCount: 0,
-        
+        guidedMode: false,
         isExam: true,
         examResult: null
     };
@@ -5854,6 +5874,7 @@ renderBadgeAltar() {
 				if (viewName === 'achievements') {
         this.renderAchievementsUI();
         this.renderBadgeAltar();
+		this.renderDate();
             }}
 
     exportData() {
@@ -6248,7 +6269,8 @@ logSessionConfirm(e) {
     
     this.save(); 
     this.renderGoals(); 
-    this.renderCalendar(); 
+    this.renderCalendar();
+    this.renderDate();	
     this.renderReports(); 
     const newBadges = this.checkAchievements(true);
     this.closeSessionModal(); 
